@@ -1,6 +1,6 @@
 import React from 'react';
-
 import { Link } from 'react-router-dom';
+import { FiArrowRight } from 'react-icons/fi';
 
 import '../styles/pages/landing.css';
 
@@ -24,7 +24,7 @@ function Landing() {
                 </div>
 
                 <Link to="/app" className="enter-app">
-                    <i className="enter-app-icon"></i>
+                    <FiArrowRight size={24} color="#FFF" />
                 </Link>
 
             </div>

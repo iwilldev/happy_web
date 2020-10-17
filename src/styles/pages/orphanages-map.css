@@ -43,10 +43,9 @@
     z-index: 5;
 }
 
-#page-map .create-orphanage {
+#page-map .create-orphanage,
+#page-map .back-to-home {
     position: absolute;
-    right: 48px;
-    bottom: 48px;
 
     z-index: 10;
     
@@ -63,13 +62,49 @@
     transition: background-color 0.2s;
 }
 
-#page-map .create-orphanage:hover {
+#page-map .create-orphanage {
+    right: 48px;
+    bottom: 48px;
+}
+
+#page-map .back-to-home {
+    right: 48px;
+    top: 48px;
+}
+
+#page-map .create-orphanage:hover,
+#page-map .back-to-home:hover {
     background: #34327f;
 }
 
-#page-map .create-orphanage-icon {
-    background: #FFF;
-    width: 16px;
-    height: 16px;
-    clip-path: polygon(35% 0, 65% 0, 65% 35%, 100% 35%, 100% 65%, 65% 65%, 65% 100%, 35% 100%, 35% 65%, 0 65%, 0 35%, 35% 35%, 35% 0);
+#page-map .map-popup .leaflet-popup-content-wrapper {
+    background: rgba(255,255,255,0.8);
+    border-radius: 20px;
 }
+
+#page-map .map-popup .leaflet-popup-content {
+    color: #34327f;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 8px 12px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#page-map .map-popup .leaflet-popup-content a {
+    width: 48px;
+    height: 48px;
+    background: #EB570E;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+#page-map .map-popup .leaflet-popup-content a:hover {
+    background: #6e6cac;
+}
+
