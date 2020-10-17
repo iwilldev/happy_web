@@ -20,6 +20,10 @@ function OrphanagesMap() {
 
     const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
 
+    const defaultPosition = {latitude: -22.7598, longitude: -43.4516};
+    const [mapZoom, setMapZoom] = useState(12);
+    const [mapPosition, setMapPosition] = useState({latitude: defaultPosition.latitude, longitude: defaultPosition.longitude});
+
     useEffect(() => {
         api.get('orphanages').then(response => {
             setOrphanages(response.data);
@@ -40,9 +44,13 @@ function OrphanagesMap() {
                 </footer>
             </aside>
             <Map 
-                center={[-22.7598,-43.4516]}
-                zoom={12}
+                center={[mapPosition.latitude,mapPosition.longitude]}
+                zoom={mapZoom}
                 style={{ width: '100%', height: '100%' }}
+                onClick={() => {
+                    setMapZoom(12);
+                    setMapPosition({latitude: defaultPosition.latitude, longitude: defaultPosition.longitude})
+                }}
             >
                 <TileLayer 
                     url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`} 
@@ -55,6 +63,10 @@ function OrphanagesMap() {
                                 key={orphanage.id}
                                 icon={mapIcon}
                                 position={[orphanage.latitude,orphanage.longitude]}
+                                onClick={() => {
+                                    setMapZoom(20);
+                                    setMapPosition({latitude: orphanage.latitude, longitude: orphanage.longitude})
+                                }}
                             >
                                 <Popup closeButton={false} minWidth={200} maxWidth={200} className="map-popup">
                                     {orphanage.name}

@@ -21,7 +21,7 @@ export default function CreateOrphanage() {
   const [opening_hours, setOpeningHours] = useState('');
   const [open_on_weekends, setOpenOnWeekends] = useState(false);
   const [images, setImages] = useState<File[]>([]);
-  const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [previewImages, setPreviewImages] = useState<{name: string, url: string}[]>([]);
 
   function handleMapClick(event: LeafletMouseEvent) {
     
@@ -39,12 +39,15 @@ export default function CreateOrphanage() {
       return;
     }
 
-    const selectedImages = Array.from(event.target.files);
+    const selectedImages = images.concat(Array.from(event.target.files));
     
     setImages(selectedImages);
 
     const selectedImagesPreview = selectedImages.map(image => {
-      return URL.createObjectURL(image);
+      return {
+        name: image.name,
+        url: URL.createObjectURL(image),
+      }
     })
 
     setPreviewImages(selectedImagesPreview);
@@ -135,11 +138,19 @@ export default function CreateOrphanage() {
               <div className="images-container">
                 {previewImages.map((image) => {
                   return (
-                    <div key={image} className="image-preview">
-                      <img src={image} alt={name}/>
+                    <div key={image.name} className="image-preview">
+                      <img src={image.url} alt={name}/>
                       <FiX 
                         color="#FFF" 
-                        className="delete-image" 
+                        className="delete-image"
+                        onClick={() => {
+                          setImages(images.filter((deletedImage) => {
+                            return image.name !== deletedImage.name;
+                          }))
+                          setPreviewImages(previewImages.filter((deletedImage) => {
+                            return image !== deletedImage;
+                          }))
+                        }} 
                       />
                     </div>
                   )
